@@ -2,6 +2,14 @@
 
 Static portfolio site for Ashish Mishra.
 
+Live site: [https://aashish-cs.github.io/](https://aashish-cs.github.io/)
+
+## Preview
+
+![Ashish Mishra portfolio desktop preview](assets/portfolio-desktop.png)
+
+![Ashish Mishra portfolio mobile preview](assets/portfolio-mobile.png)
+
 ## Files
 
 - `index.html` - main portfolio page
