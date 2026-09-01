@@ -22,3 +22,25 @@ const observer = new IntersectionObserver(
 );
 
 sections.forEach((section) => observer.observe(section));
+
+const spotlightTargets = [
+  ...document.querySelectorAll(
+    ".skill-pill, .project-row, .education-card, .award-list article, .contact-panel"
+  ),
+];
+
+const supportsHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+if (supportsHover && !reduceMotion) {
+  spotlightTargets.forEach((target) => {
+    target.addEventListener("pointermove", (event) => {
+      const rect = target.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width) * 100;
+      const y = ((event.clientY - rect.top) / rect.height) * 100;
+
+      target.style.setProperty("--spotlight-x", `${x.toFixed(2)}%`);
+      target.style.setProperty("--spotlight-y", `${y.toFixed(2)}%`);
+    });
+  });
+}

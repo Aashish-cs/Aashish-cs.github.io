@@ -138,6 +138,13 @@ li + li {
   justify-self: end;
   border: 1px solid rgba(255, 255, 255, 0.65);
   padding: 0.62rem 0.8rem;
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.header-resume:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: var(--white);
 }
 
 .hero {
@@ -250,7 +257,7 @@ h1 {
   border: 1px solid transparent;
   padding: 0.72rem 1rem;
   font-weight: 700;
-  transition: background 160ms ease, color 160ms ease, border-color 160ms ease;
+  transition: background 180ms ease, color 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
 .button-primary {
@@ -260,6 +267,8 @@ h1 {
 
 .button-primary:hover {
   background: var(--mint);
+  box-shadow: 0 16px 34px rgba(7, 22, 19, 0.2);
+  transform: translateY(-2px);
 }
 
 .button-secondary {
@@ -269,6 +278,8 @@ h1 {
 
 .button-secondary:hover {
   background: rgba(255, 255, 255, 0.12);
+  border-color: var(--white);
+  transform: translateY(-2px);
 }
 
 .hero-links {
@@ -383,6 +394,9 @@ h1 {
 }
 
 .skill-pill {
+  --spotlight-x: 50%;
+  --spotlight-y: 50%;
+  position: relative;
   display: flex;
   min-height: 54px;
   align-items: center;
@@ -396,6 +410,50 @@ h1 {
   font-weight: 800;
   line-height: 1.15;
   box-shadow: 0 10px 24px rgba(22, 60, 51, 0.08);
+  isolation: isolate;
+  overflow: hidden;
+  transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.skill-pill::before,
+.project-row::before,
+.education-card::before,
+.award-list article::before,
+.contact-panel::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(
+    circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
+    rgba(29, 95, 208, 0.16),
+    rgba(240, 198, 109, 0.09) 30%,
+    transparent 58%
+  );
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.skill-pill:hover,
+.skill-pill:focus-within {
+  border-color: rgba(29, 95, 208, 0.4);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 18px 40px rgba(22, 60, 51, 0.16);
+  transform: translateY(-3px) scale(1.015);
+}
+
+.skill-pill:hover::before,
+.skill-pill:focus-within::before,
+.project-row:hover::before,
+.project-row:focus-within::before,
+.education-card:hover::before,
+.education-card:focus-within::before,
+.award-list article:hover::before,
+.award-list article:focus-within::before,
+.contact-panel:hover::before,
+.contact-panel:focus-within::before {
+  opacity: 1;
 }
 
 .skill-pill img {
@@ -429,9 +487,21 @@ h1 {
 }
 
 .award-list article {
+  --spotlight-x: 50%;
+  --spotlight-y: 50%;
+  position: relative;
   min-height: 170px;
   background: var(--white);
   padding: 1.35rem;
+  isolation: isolate;
+  overflow: hidden;
+  transition: box-shadow 180ms ease, transform 180ms ease;
+}
+
+.award-list article:hover,
+.award-list article:focus-within {
+  box-shadow: 0 18px 40px rgba(21, 21, 21, 0.1);
+  transform: translateY(-2px);
 }
 
 .skill-group h3,
@@ -475,6 +545,7 @@ h1 {
 }
 
 .text-link {
+  display: inline-flex;
   flex: 0 0 auto;
   border-bottom: 1px solid currentColor;
   padding-bottom: 0.15rem;
@@ -485,11 +556,35 @@ h1 {
 }
 
 .project-row {
+  --spotlight-x: 50%;
+  --spotlight-y: 50%;
+  position: relative;
   display: grid;
   grid-template-columns: minmax(260px, 0.82fr) minmax(0, 1.18fr);
   gap: clamp(1.5rem, 4vw, 4rem);
   border-bottom: 1px solid var(--line);
   padding: 2.5rem 0;
+  isolation: isolate;
+  transition: border-color 180ms ease, transform 180ms ease;
+}
+
+.project-row:hover,
+.project-row:focus-within {
+  border-color: rgba(29, 95, 208, 0.3);
+  transform: translateY(-2px);
+}
+
+.project-row > * {
+  position: relative;
+  z-index: 1;
+}
+
+.skill-pill > *,
+.education-card > *,
+.award-list article > *,
+.contact-panel > * {
+  position: relative;
+  z-index: 1;
 }
 
 .project-image {
@@ -499,6 +594,8 @@ h1 {
   min-height: 250px;
   border: 1px solid var(--line);
   background: var(--white);
+  box-shadow: 0 14px 34px rgba(21, 21, 21, 0.08);
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
 
 .project-image::after {
@@ -521,11 +618,22 @@ h1 {
   min-height: 250px;
   object-fit: cover;
   object-position: left top;
-  transition: transform 220ms ease;
+  transition: filter 220ms ease, transform 260ms ease;
 }
 
-.project-image:hover img {
-  transform: scale(1.018);
+.project-image:hover,
+.project-row:hover .project-image,
+.project-image:focus-visible {
+  border-color: rgba(29, 95, 208, 0.44);
+  box-shadow: 0 22px 56px rgba(21, 21, 21, 0.14);
+  transform: translateY(-2px);
+}
+
+.project-image:hover img,
+.project-row:hover .project-image img,
+.project-image:focus-visible img {
+  filter: contrast(1.04) saturate(1.04);
+  transform: scale(1.045);
 }
 
 .project-details {
@@ -568,8 +676,26 @@ h1 {
 }
 
 .project-links a {
+  display: inline-flex;
   border-bottom: 1px solid currentColor;
   padding-bottom: 0.15rem;
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.text-link,
+.award-link,
+.contact-links a,
+.site-footer a {
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.project-links a:hover,
+.text-link:hover,
+.award-link:hover,
+.contact-links a:hover,
+.site-footer a:hover {
+  color: var(--coral);
+  transform: translateY(-1px);
 }
 
 .award-link {
@@ -619,9 +745,21 @@ h1 {
 }
 
 .education-card {
+  --spotlight-x: 50%;
+  --spotlight-y: 50%;
+  position: relative;
   min-height: 220px;
   background: var(--white);
   padding: 1.6rem;
+  isolation: isolate;
+  overflow: hidden;
+  transition: box-shadow 180ms ease, transform 180ms ease;
+}
+
+.education-card:hover,
+.education-card:focus-within {
+  box-shadow: 0 18px 40px rgba(21, 21, 21, 0.1);
+  transform: translateY(-2px);
 }
 
 .education-card.accent {
@@ -696,8 +834,21 @@ h1 {
 }
 
 .contact-panel {
+  --spotlight-x: 50%;
+  --spotlight-y: 50%;
+  position: relative;
   border-top: 1px solid rgba(255, 255, 255, 0.3);
   padding-top: 1.2rem;
+  isolation: isolate;
+}
+
+.contact-panel::before {
+  background: radial-gradient(
+    circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
+    rgba(255, 255, 255, 0.16),
+    rgba(240, 198, 109, 0.1) 32%,
+    transparent 60%
+  );
 }
 
 .contact-panel p {
@@ -791,6 +942,34 @@ h1 {
     width: 100%;
     box-shadow: none;
     padding: 0.35in;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .skill-pill:hover,
+  .project-row:hover,
+  .project-image:hover,
+  .project-row:hover .project-image,
+  .education-card:hover,
+  .award-list article:hover,
+  .header-resume:hover,
+  .button-primary:hover,
+  .button-secondary:hover {
+    transform: none;
+  }
+
+  .project-image:hover img,
+  .project-row:hover .project-image img {
+    transform: none;
   }
 }
 
