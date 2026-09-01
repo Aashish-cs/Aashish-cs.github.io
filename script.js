@@ -23,6 +23,23 @@ const observer = new IntersectionObserver(
 
 sections.forEach((section) => observer.observe(section));
 
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const typewriterText = document.querySelector("[data-typewriter]");
+
+if (typewriterText && !reduceMotion) {
+  const message = typewriterText.dataset.typewriter || typewriterText.textContent.trim();
+  typewriterText.textContent = "";
+
+  [...message].forEach((char, index) => {
+    window.setTimeout(() => {
+      const letter = document.createElement("span");
+      letter.className = char === " " ? "typing-char is-space" : "typing-char";
+      letter.textContent = char;
+      typewriterText.append(letter);
+    }, 70 * index + 260);
+  });
+}
+
 const spotlightTargets = [
   ...document.querySelectorAll(
     ".skill-pill, .project-row, .education-card, .award-list article, .contact-panel"
@@ -30,7 +47,6 @@ const spotlightTargets = [
 ];
 
 const supportsHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 if (supportsHover && !reduceMotion) {
   spotlightTargets.forEach((target) => {

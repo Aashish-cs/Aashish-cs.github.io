@@ -174,6 +174,67 @@ li + li {
   padding: 8rem 0 5.25rem;
 }
 
+.hero-welcome {
+  display: inline-flex;
+  min-height: 1.7rem;
+  align-items: center;
+  gap: 0.38rem;
+  margin-bottom: 0.85rem;
+  color: #f0c66d;
+  font-family: Manrope, ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(0.78rem, 1vw, 0.95rem);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.typewriter-text {
+  display: inline-flex;
+  min-width: min(23ch, calc(100vw - 40px));
+  flex-wrap: wrap;
+}
+
+.typing-char {
+  display: inline-block;
+  animation: letter-rise 360ms cubic-bezier(0.2, 0.8, 0.22, 1) both;
+}
+
+.typing-char.is-space {
+  width: 0.36em;
+}
+
+.typewriter-cursor {
+  width: 2px;
+  height: 1.05em;
+  background: var(--gold);
+  box-shadow: 0 0 16px rgba(240, 198, 109, 0.78);
+  animation: cursor-blink 820ms steps(1) infinite;
+}
+
+@keyframes letter-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(0.55em) rotateX(72deg);
+  }
+
+  70% {
+    opacity: 1;
+    transform: translateY(-0.08em) rotateX(0deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+  }
+}
+
+@keyframes cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
 .hero-portrait {
   position: absolute;
   right: max(20px, calc((100vw - 1180px) / 2));
@@ -1055,6 +1116,12 @@ h1 {
 
   .hero-content {
     padding-bottom: 3.5rem;
+  }
+
+  .hero-welcome {
+    max-width: 100%;
+    margin-bottom: 0.7rem;
+    font-size: 0.74rem;
   }
 
   .hero-portrait {
